@@ -1,6 +1,6 @@
 # CubicTimer
 
-## A timer for Rubik's cube
+## A timer for Rubik's cube written in Qt6
 
 Current features: 
 - Timer
