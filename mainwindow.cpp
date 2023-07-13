@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     ui->uiScoreList->setFocusPolicy(Qt::NoFocus);
     ui->timerLabel->setFocusPolicy(Qt::StrongFocus);
+    ui->scrambleLabel->setText(scrambleGenerator.generateScramble());
     uiUpdateTimer = new QTimer();
     display_timer.setHMS(0,0,0,0);
     connect(uiUpdateTimer,&QTimer::timeout, this, &MainWindow::updateDisplayTime);
@@ -32,6 +33,7 @@ void MainWindow::stopTime() {
     uiUpdateTimer->stop();
     timeBoard.addToList(display_timer);
     display_timer.setHMS(0,0,0,0);
+    ui->scrambleLabel->setText(scrambleGenerator.generateScramble());
 }
 
 void MainWindow::updateDisplayTime() {

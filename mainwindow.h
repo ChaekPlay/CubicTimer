@@ -10,6 +10,7 @@
 #include <iostream>
 #include "timeboard.h"
 #include <QStringListModel>
+#include "scramblegen.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -30,6 +31,7 @@ private:
     QTime display_timer;
     QTimer* uiUpdateTimer;
     TimeBoard timeBoard;
+    ScrambleGen scrambleGenerator;
     void startTime();
     void stopTime();
     void updateDisplayTime();

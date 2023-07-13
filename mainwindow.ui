@@ -26,7 +26,10 @@
      <verstretch>0</verstretch>
     </sizepolicy>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,0,1">
+   <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,1">
+    <property name="leftMargin">
+     <number>9</number>
+    </property>
     <item>
      <widget class="QWidget" name="timerWidget" native="true">
       <property name="minimumSize">
@@ -48,6 +51,9 @@
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -74,19 +80,6 @@
      </widget>
     </item>
     <item>
-     <spacer name="horizontalSpacer">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item>
      <widget class="QWidget" name="scoreWidget" native="true">
       <property name="minimumSize">
        <size>
@@ -94,7 +87,7 @@
         <height>0</height>
        </size>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,1,1">
+      <layout class="QVBoxLayout" name="verticalLayout_2" stretch="10,1,1">
        <property name="spacing">
         <number>8</number>
        </property>
