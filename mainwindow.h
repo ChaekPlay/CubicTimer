@@ -11,6 +11,7 @@
 #include "timeboard.h"
 #include <QStringListModel>
 #include "scramblegen.h"
+#include "acceptdialog.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -26,6 +27,7 @@ public:
 public slots:
     void updateAoNOnUi(QString, QString);
     void updateTable(QString);
+    void removeElementFromTable(int);
 private:
     Ui::MainWindow *ui;
     QTime display_timer;
@@ -36,10 +38,11 @@ private:
     void stopTime();
     void updateDisplayTime();
     bool timeTicking = false;
-    QStringList scoreList;
 
 protected:
     virtual void keyPressEvent(QKeyEvent*);
     virtual void keyReleaseEvent(QKeyEvent*);
+private slots:
+    void on_clearButton_clicked();
 };
 #endif // MAINWINDOW_H

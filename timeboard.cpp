@@ -19,7 +19,7 @@ void TimeBoard::removeFromList(int id) {
     QString ao5 = calculateAverageOfN(5);
     QString ao12 = calculateAverageOfN(12);
     emit averageUpdated(ao5,ao12);
-    emit tableUpdated("not implemented");
+    emit tableElementRemoved(id);
 }
 
 QString TimeBoard::calculateAverageOfN(int n) {

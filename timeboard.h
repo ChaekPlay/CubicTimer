@@ -19,6 +19,7 @@ public:
 signals:
     void averageUpdated(QString, QString);
     void tableUpdated(QString);
+    void tableElementRemoved(int);
 private:
     std::vector<QTime> list;
 };

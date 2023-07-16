@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     ui->uiScoreList->setFocusPolicy(Qt::NoFocus);
+    ui->clearButton->setFocusPolicy(Qt::NoFocus);
     ui->timerLabel->setFocusPolicy(Qt::StrongFocus);
     ui->scrambleLabel->setText(scrambleGenerator.generateScramble());
     uiUpdateTimer = new QTimer();
@@ -70,3 +71,16 @@ void MainWindow::updateTable(QString item) {
     }
     ui->uiScoreList->addItem(item);
 }
+
+void MainWindow::removeElementFromTable(int id) {
+    ui->uiScoreList->takeItem(id);
+}
+
+void MainWindow::on_clearButton_clicked()
+{
+    AcceptDialog dialog;
+    if(dialog.exec() == QDialog::Rejected)
+        return;
+    timeBoard.clearList();
+}
+

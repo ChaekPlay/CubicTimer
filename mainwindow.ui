@@ -87,7 +87,7 @@
         <height>0</height>
        </size>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_2" stretch="10,1,1">
+      <layout class="QVBoxLayout" name="verticalLayout_2" stretch="10,0,1,1">
        <property name="spacing">
         <number>8</number>
        </property>
@@ -103,6 +103,18 @@
           <font>
            <pointsize>20</pointsize>
           </font>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="clearButton">
+         <property name="font">
+          <font>
+           <pointsize>16</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Clear</string>
          </property>
         </widget>
        </item>
