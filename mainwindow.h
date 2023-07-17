@@ -12,6 +12,7 @@
 #include <QStringListModel>
 #include "scramblegen.h"
 #include "acceptdialog.h"
+#include <QFileDialog>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -44,5 +45,6 @@ protected:
     virtual void keyReleaseEvent(QKeyEvent*);
 private slots:
     void on_clearButton_clicked();
+    void on_saveToFileButton_clicked();
 };
 #endif // MAINWINDOW_H

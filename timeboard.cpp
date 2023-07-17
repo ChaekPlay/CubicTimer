@@ -1,11 +1,11 @@
 #include "timeboard.h"
 
-void TimeBoard::addToList(QTime time) {
+void TimeBoard::addToList(SolveTime time) {
     list.push_back(time);
     QString ao5 = calculateAverageOfN(5);
     QString ao12 = calculateAverageOfN(12);
     emit averageUpdated(ao5, ao12);
-    emit tableUpdated(TimeFormat::generateFormatForTime(time));
+    emit tableUpdated(TimeFormat::generateFormatForTime(time.getTime()));
 }
 
 void TimeBoard::clearList() {
@@ -25,14 +25,19 @@ void TimeBoard::removeFromList(int id) {
 QString TimeBoard::calculateAverageOfN(int n) {
     if(list.size() < n)
         return QString("-");
-    std::vector<QTime> aoNList(list.end() - n, list.end());
-    auto max = std::max_element(aoNList.begin(), aoNList.end());
-    auto min = std::min_element(aoNList.begin(), aoNList.end());
+    std::vector<SolveTime> aoNList(list.end() - n, list.end());
+    auto max = std::max_element(aoNList.begin(), aoNList.end(),
+        [] (SolveTime& first, SolveTime& second)
+            {return first.getTime() > second.getTime();});
+    auto min = std::min_element(aoNList.begin(), aoNList.end(),
+        [] (SolveTime& first, SolveTime& second)
+            {return first.getTime() < second.getTime();});
     aoNList.erase(max);
     aoNList.erase(min);
-    long long average = 0;
+    uint64_t average = 0;
     for(auto& it: aoNList) {
-        average += it.hour()*3600*1000+it.minute()*60*1000+it.second()*1000+it.msec();
+        average += it.getTime().hour()*3600*1000+it.getTime().minute()*60*1000
+                   +it.getTime().second()*1000+it.getTime().msec();
     }
     average /= (n-2);
     const int MS_TO_HOURS = 3600 * 1000, MS_TO_MINUTES = 60*1000, MS_TO_SECONDS = 1000;
@@ -42,4 +47,16 @@ QString TimeBoard::calculateAverageOfN(int n) {
     return TimeFormat::generateFormatForTime(averageTime);
 }
 
-// TODO: make a format builder function
+void TimeBoard::saveToFile(QString path) {
+    QFile file(path);
+    if(!file.open(QIODevice::WriteOnly | QIODevice::Text))
+        return;
+    QTextStream out(&file);
+    int i = 1;
+    for(auto& it: list) {
+        QString formattedTime = TimeFormat::generateFormatForTime(it.getTime());
+        out << QString::number(i) << " Time: " << formattedTime << "\nScramble: " << it.getScramble() << "\n";
+        i++;
+    }
+    file.close();
+}

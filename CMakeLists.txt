@@ -30,6 +30,8 @@ set(PROJECT_SOURCES
         acceptdialog.ui
         acceptdialog.h
         acceptdialog.cpp
+        solvetime.h
+        solvetime.cpp
         ${TS_FILES}
 )
 

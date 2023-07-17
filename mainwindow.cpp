@@ -32,7 +32,7 @@ void MainWindow::startTime() {
 void MainWindow::stopTime() {
     timeTicking = false;
     uiUpdateTimer->stop();
-    timeBoard.addToList(display_timer);
+    timeBoard.addToList(SolveTime(display_timer, scrambleGenerator.getCurrentScramble()));
     display_timer.setHMS(0,0,0,0);
     ui->scrambleLabel->setText(scrambleGenerator.generateScramble());
 }
@@ -82,5 +82,13 @@ void MainWindow::on_clearButton_clicked()
     if(dialog.exec() == QDialog::Rejected)
         return;
     timeBoard.clearList();
+}
+
+
+void MainWindow::on_saveToFileButton_clicked()
+{
+    QString fileName = QFileDialog::getSaveFileName(this,
+        tr("Open txt generated file"), nullptr, tr("Generated txt files (*.txt)"));
+    timeBoard.saveToFile(fileName);
 }
 
