@@ -10,6 +10,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     ui->uiScoreList->setFocusPolicy(Qt::NoFocus);
     ui->clearButton->setFocusPolicy(Qt::NoFocus);
+    ui->loadFromFile->setFocusPolicy(Qt::NoFocus);
+    ui->saveToFileButton->setFocusPolicy(Qt::NoFocus);
     ui->timerLabel->setFocusPolicy(Qt::StrongFocus);
     ui->scrambleLabel->setText(scrambleGenerator.generateScramble());
     uiUpdateTimer = new QTimer();
@@ -90,5 +92,13 @@ void MainWindow::on_saveToFileButton_clicked()
     QString fileName = QFileDialog::getSaveFileName(this,
         tr("Open txt generated file"), nullptr, tr("Generated txt files (*.txt)"));
     timeBoard.saveToFile(fileName);
+}
+
+
+void MainWindow::on_loadFromFile_clicked()
+{
+    QString fileName = QFileDialog::getOpenFileName(this,
+        tr("Open txt generated file"), nullptr, tr("Generated txt files (*.txt)"));
+    timeBoard.loadFromFile(fileName);
 }
 

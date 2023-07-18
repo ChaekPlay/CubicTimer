@@ -11,6 +11,16 @@
 #include <QIODevice>
 #include <QFile>
 #include <QTextStream>
+#include <QMessageBox>
+#include <QRegularExpression>
+
+class IOException {
+public:
+    IOException(QString msg) {
+        this->msg;
+    }
+    QString msg;
+};
 
 class TimeBoard: public QObject
 {
@@ -20,6 +30,7 @@ public:
     void removeFromList(int);
     void clearList();
     QString calculateAverageOfN(int);
+    void loadFromFile(QString);
     void saveToFile(QString);
 signals:
     void averageUpdated(QString, QString);

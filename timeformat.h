@@ -8,6 +8,7 @@ class TimeFormat
 {
 public:
     static QString generateFormatForTime(QTime);
+    static QString generateFixedFormat(QTime);
 };
 
 #endif // TIMEFORMAT_H

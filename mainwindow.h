@@ -46,5 +46,6 @@ protected:
 private slots:
     void on_clearButton_clicked();
     void on_saveToFileButton_clicked();
+    void on_loadFromFile_clicked();
 };
 #endif // MAINWINDOW_H

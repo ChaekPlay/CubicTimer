@@ -46,7 +46,40 @@ QString TimeBoard::calculateAverageOfN(int n) {
     QTime averageTime(average / MS_TO_HOURS,minutes,seconds,average % MS_TO_SECONDS);
     return TimeFormat::generateFormatForTime(averageTime);
 }
-
+void TimeBoard::loadFromFile(QString path) {
+    QFile file(path);
+    if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        return;
+    QTextStream in(&file);
+    std::vector<SolveTime> tmp;
+    try {
+        if(in.atEnd())
+            throw IOException("File is empty");
+        static QRegularExpression re("\\d+ Time: ");
+        while(!in.atEnd()) {
+            QString rawTime = in.readLine();
+            QString scramble = in.readLine();
+            if(scramble == nullptr)
+                throw IOException("Unexpected end of file");
+            rawTime.replace(re, "");
+            QString format = "hh.mm.ss.zzz";
+            QTime time = QTime::fromString(rawTime, format);
+            scramble.replace("Scramble: ", "");
+            tmp.push_back(SolveTime(time, scramble));
+        }
+    }
+    catch(const IOException& err) {
+        file.close();
+        QMessageBox msgBox;
+        msgBox.setText("Unable to read file: "+err.msg);
+        msgBox.exec();
+    }
+    file.close();
+    clearList();
+    for(auto& it: tmp) {
+        addToList(it);
+    }
+}
 void TimeBoard::saveToFile(QString path) {
     QFile file(path);
     if(!file.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -54,7 +87,7 @@ void TimeBoard::saveToFile(QString path) {
     QTextStream out(&file);
     int i = 1;
     for(auto& it: list) {
-        QString formattedTime = TimeFormat::generateFormatForTime(it.getTime());
+        QString formattedTime = TimeFormat::generateFixedFormat(it.getTime());
         out << QString::number(i) << " Time: " << formattedTime << "\nScramble: " << it.getScramble() << "\n";
         i++;
     }

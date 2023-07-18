@@ -8,3 +8,7 @@ QString TimeFormat::generateFormatForTime(QTime time) {
         format = "hh.m" + format;
     return time.toString(format);
 }
+
+QString TimeFormat::generateFixedFormat(QTime time) {
+    return time.toString("hh.mm.ss.zzz");
+}
