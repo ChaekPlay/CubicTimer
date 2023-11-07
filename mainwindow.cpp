@@ -53,7 +53,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
 void MainWindow::keyReleaseEvent(QKeyEvent* event) {
     if(event->key() != Qt::Key_Space || event->isAutoRepeat())
         return;
-    ui->timerLabel->setStyleSheet("QLabel { color: white; }");
+    ui->timerLabel->setStyleSheet("");
     if(!timeTicking) {
         startTime();
         return;
